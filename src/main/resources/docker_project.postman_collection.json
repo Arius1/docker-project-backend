@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "ac0767aa-f7b1-4900-877b-c766f7837930",
+		"name": "docker_project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetPhoto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getLastPhoto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getLastPhoto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ScanPhoto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/E:/Альгиз/programing/java/spring-boot-docker-project/src/main/resources/1.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/storePhoto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"storePhoto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sendResponse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "response",
+							"value": "No tumor",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/sendResponse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sendResponse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetResponse",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getResponse/?filename=1.jpg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getResponse",
+						""
+					],
+					"query": [
+						{
+							"key": "filename",
+							"value": "1.jpg"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
