@@ -45,4 +45,9 @@ public class ImgReceiverController {
     public ResponseEntity<String> getResponse(@RequestParam("filename") String filename) {
         return new ResponseEntity(imageService.GetResponse(filename), HttpStatus.OK);
     }
+
+    @GetMapping("/getTasksCount")
+    public ResponseEntity<Integer> getTasksCount() {
+        return new ResponseEntity(imageService.GetTasksCount(), HttpStatus.OK);
+    }
 }

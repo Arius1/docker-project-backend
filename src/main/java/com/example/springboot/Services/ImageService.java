@@ -32,22 +32,28 @@ public class ImageService {
 
     private HashMap<String, String> scanResponses = new HashMap<>();
     private List<String> filenames = new ArrayList<>();
-
+    private List<MultipartFile> photos = new ArrayList<>();
 
     public ResponseEntity<InputStreamResource> GetPhoto () {
         return SendJPEGAsResponseEntity(filenames.get(filenames.size()-1));
     }
 
     public String StorePhoto(MultipartFile file) {
-        return storeJPEG(file);
+        return storeJPEGtoList(file);
     }
 
     public void StoreResponse(String response) {
         scanResponses.put(filenames.get(filenames.size()-1), response);
+        filenames.remove(filenames.get(filenames.size()-1));
+        photos.remove(photos.get(photos.size()-1));
     }
 
     public String GetResponse(String filename) {
         return scanResponses.get(filename);
+    }
+
+    public int GetTasksCount() {
+        return filenames.size();
     }
 
     private String storeJPEG(MultipartFile file) {
@@ -73,6 +79,22 @@ public class ImageService {
             var imgFile = new ClassPathResource("ImagesToScan/" + filename);
             return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
                     .body(new InputStreamResource(imgFile.getInputStream()));
+        } catch (IOException e) {
+            throw new StorageException("System Error with file" + filename, e);
+        }
+    }
+
+    private String storeJPEGtoList(MultipartFile file) {
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        photos.add(file);
+        filenames.add(filename);
+        return filename;
+    }
+
+    private ResponseEntity<InputStreamResource> SendJPEGFromList(String filename) {
+        try {
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
+                    .body(new InputStreamResource(photos.get(photos.size()-1).getInputStream()));
         } catch (IOException e) {
             throw new StorageException("System Error with file" + filename, e);
         }
